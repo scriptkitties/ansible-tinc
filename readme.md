@@ -35,6 +35,7 @@ will be used in the `ConnectTo` directives of the tinc configuration.
             uX8zbfUFfjlGuhqpiHD+2wn9zShAWrz7TYLBIBvAtVoXr8Yx7uaVi5Ramjye0aCM
             /iijMYX4FhjXRF6X4nYOPuYDI/we+I3QuBLv69vgYQm3ITM6WeqkwP+pV45dqx98
             ozkzqs1p5lESUkNgOrnCK4IOJ3tIY/+deQIDAQAB
+          ed25519: j28lWmpvjfAPgYh3+VjxLmWQSOLJyz4ynNGeGlwNc1s
         seibee:
           ip: 10.0.1.3
           master: true
