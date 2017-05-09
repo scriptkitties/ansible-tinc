@@ -68,3 +68,10 @@
     - generate_key_old.failed|default(False)
   become: true
   shell: "{{ binary }} -n {{ network.name|quote }} generate-keys"
+
+- name: "Enable tinc at boottime"
+  become: true
+  service:
+    name: "{{ service }}"
+    enabled: true
+    state: restarted

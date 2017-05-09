@@ -1,3 +1,4 @@
 package: tinc
 binary: tincd
+service: tincd
 prefix: /usr/local

@@ -1,2 +1,3 @@
-binary: tincd
+binary: tinc
+service: tincd
 prefix:

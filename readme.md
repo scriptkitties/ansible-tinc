@@ -56,6 +56,7 @@ configuration.
 ```
 
 ## Todo
+- Add the new network to the network list to autostart
 - Remove unused files in the `hosts` directory
 
 ## License
