@@ -65,6 +65,6 @@
 - name: "Generate private RSA key using new interface"
   when:
     - not private_key.stat.exists
-    - generate_key_old.failed
+    - generate_key_old.failed|default(False)
   become: true
   shell: "{{ binary }} -n {{ network.name|quote }} generate-keys"
