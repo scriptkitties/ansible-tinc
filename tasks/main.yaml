@@ -43,12 +43,21 @@
     dest: "/etc/tinc/{{ network.name }}/hosts/{{ item.value.name|default(item.key) }}"
   with_dict: "{{ network.nodes }}"
 
-- name: "Ensure private key exists"
+- name: "Ensure private RSA key exists"
   stat:
     path: "/etc/tinc/{{ network.name }}/rsa_key.priv"
   register: private_key
 
-- name: "Generate private key"
+- name: "Generate private RSA key"
   when: not private_key.stat.exists
+  ignore_errors: yes
   become: true
   shell: "tincd -n {{ network.name|quote }} -K"
+  register: generate_key_old
+
+- name: "Generate private RSA key using new interface"
+  when:
+    - not private_key.stat.exists
+    - generate_key_old.failed
+  become: true
+  shell: "tinc -n {{ network.name|quote }} generate-keys"
