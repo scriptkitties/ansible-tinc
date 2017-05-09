@@ -1,0 +1,7 @@
+Subnet = {{ item.value.ip }}/32
+
+{% if item.value.rsa is defined %}
+-----BEGIN RSA PUBLIC KEY-----
+{{ item.value.rsa }}
+-----END RSA PUBLIC KEY-----
+{% endif %}

@@ -1,0 +1,5 @@
+Name = {{ ansible_hostname }}
+
+{% for node in network.nodes if network.nodes[node].master is defined %}
+ConnectTo = {{ network.nodes[node].name|default(node) }}
+{% endfor %}

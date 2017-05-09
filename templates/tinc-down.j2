@@ -1,0 +1,5 @@
+#! /usr/bin/env sh
+
+ip route del {{ network.cidr }} dev $INTERFACE
+ip addr del {{ network.nodes[ansible_hostname].ip }}/32 dev $INTERFACE
+ip link set $INTERFACE down

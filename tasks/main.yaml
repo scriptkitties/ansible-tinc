@@ -1,0 +1,54 @@
+- name: "Ensure tinc is installed"
+  become: true
+  package:
+    name: tinc
+    state: present
+
+- name: "Ensure the directories for {{ network.name }} exist"
+  become: true
+  file:
+    path: "/etc/tinc/{{ network.name }}"
+    state: directory
+
+- name: "Install tinc-up"
+  become: true
+  template:
+    src: tinc-up.j2
+    dest: "/etc/tinc/{{ network.name }}/tinc-up"
+    mode: 0755
+
+- name: "Install tinc-down"
+  become: true
+  template:
+    src: tinc-down.j2
+    dest: "/etc/tinc/{{ network.name }}/tinc-down"
+    mode: 0755
+
+- name: "Setup tinc network"
+  become: true
+  template:
+    src: tinc.j2
+    dest: "/etc/tinc/{{ network.name }}/tinc.conf"
+
+- name: "Ensure the hosts directory exists"
+  become: true
+  file:
+    path: "/etc/tinc/{{ network.name }}/hosts"
+    state: directory
+
+- name: "Setup hosts"
+  become: true
+  template:
+    src: host.j2
+    dest: "/etc/tinc/{{ network.name }}/hosts/{{ item.value.name|default(item.key) }}"
+  with_dict: "{{ network.nodes }}"
+
+- name: "Ensure private key exists"
+  stat:
+    path: "/etc/tinc/{{ network.name }}/rsa_key.priv"
+  register: private_key
+
+- name: "Generate private key"
+  when: not private_key.stat.exists
+  become: true
+  shell: "tincd -n {{ network.name|quote }} -K"

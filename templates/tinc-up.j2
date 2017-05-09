@@ -1,0 +1,5 @@
+#! /usr/bin/env sh
+
+ip link set $INTERFACE up
+ip addr add {{ network.nodes[ansible_hostname].ip }}/32 dev $INTERFACE
+ip route add {{ network.cidr }} dev $INTERFACE
