@@ -1,0 +1,3 @@
+package: tinc
+binary: tinc
+prefix: /usr/local
